@@ -1,13 +1,9 @@
-streamlit
 fastapi
 uvicorn
 python-multipart
-requests
 python-dotenv
 pypdf
 python-docx
 docx2txt
-sentence-transformers
-faiss-cpu
-numpy
+scikit-learn
 openai
