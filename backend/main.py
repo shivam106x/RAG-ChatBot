@@ -37,6 +37,7 @@ uploaded_documents = []
 
 class QueryRequest(BaseModel):
     question: str
+    compare: bool = False
 
 
 # ============================================================
@@ -292,7 +293,8 @@ def query_document(
         answer, sources, results = (
             answer_question(
                 vector_store,
-                request.question
+                request.question,
+                force_comparison=request.compare
             )
         )
 

@@ -7,3 +7,6 @@ python-docx
 docx2txt
 scikit-learn
 openai
+sentence-transformers
+faiss-cpu
+numpy

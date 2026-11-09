@@ -1,11 +1,4 @@
-import requests
-import streamlit as st
-
-
-# ==================================================
-# Configuration
-# ==================================================
-
+from pathlib import Path
 import os
 import requests
 import streamlit as st
@@ -264,21 +257,12 @@ if st.button(
 
                     for source in sources:
 
-                        filename = source.get(
-                            "source",
-                            "Unknown source"
-                        )
+                        filename = Path(
+                            source.get("source", "Unknown source")
+                        ).name
 
                         page = source.get(
                             "page"
-                        )
-
-                        filename = filename.replace(
-                            "uploads\\",
-                            ""
-                        ).replace(
-                            "uploads/",
-                            ""
                         )
 
                         source_key = (

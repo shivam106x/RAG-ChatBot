@@ -34,12 +34,21 @@ COMPARISON_CHUNKS_PER_DOCUMENT = 6
 
 
 # ============================================================
-# Local Embedding Model
+# Local Embedding Model (lazy-loaded on first use)
 # ============================================================
 
-embedding_model = SentenceTransformer(
-    EMBEDDING_MODEL_NAME
-)
+_embedding_model = None
+
+
+def _get_embedding_model():
+    """
+    Load the embedding model once, on first use.
+    This prevents blocking uvicorn startup with a 20-30s model load.
+    """
+    global _embedding_model
+    if _embedding_model is None:
+        _embedding_model = SentenceTransformer(EMBEDDING_MODEL_NAME)
+    return _embedding_model
 
 
 # ============================================================
@@ -257,7 +266,9 @@ def embed_texts(texts):
     Generate normalized local embeddings.
     """
 
-    vectors = embedding_model.encode(
+    model = _get_embedding_model()
+
+    vectors = model.encode(
         texts,
         normalize_embeddings=True,
         convert_to_numpy=True
